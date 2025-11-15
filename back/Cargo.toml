@@ -1,0 +1,17 @@
+[package]
+name = "back"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+dotenvy = "0.15"
+actix-web = "4"
+env_logger = "0.11"
+log = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+utoipa = { version = "^4.2.3", features = ["chrono"] }
+utoipa-swagger-ui = { version = "^7", features = ["actix-web"] }
+actix-session = { version = "^0.10.0", features = ["cookie-session"] }
+sea-orm = { version = "^1.1.0", features = [ "sqlx-postgres", "runtime-tokio-rustls"] }
+chrono = { version = "^0.4.0", features = ["serde"] }
