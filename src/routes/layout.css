@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@plugin 'flowbite/plugin';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+
+    --color-primary-50:  #EAF2FA;
+    --color-primary-100: #D4E4F5;
+    --color-primary-200: #A8C9EB;
+    --color-primary-300: #7CADE0;
+    --color-primary-400: #4F92D6;
+    --color-primary-500: #1F6FBF;
+    --color-primary-600: #1A5CA0;
+    --color-primary-700: #154A81;
+    --color-primary-800: #103861;
+    --color-primary-900: #0A2642;
+    --color-primary-950: #061A2E;
+
+    --color-secondary-50:  #FCEEEE;
+    --color-secondary-100: #F8DADA;
+    --color-secondary-200: #F0B4B6;
+    --color-secondary-300: #E88E90;
+    --color-secondary-400: #DF676B;
+    --color-secondary-500: #C63F44;
+    --color-secondary-600: #A7383B;
+    --color-secondary-700: #882F32;
+    --color-secondary-800: #6A2628;
+    --color-secondary-900: #4B1C1E;
+    --color-secondary-950: #331315;
+
+}
+
+@source "../../node_modules/flowbite-svelte/dist";
+@source "../../node_modules/flowbite-svelte-icons/dist";
