@@ -1,7 +1,5 @@
-
 export function load({ params }) {
-
     return {
-        'year': params.slug
-    }
+        year: params.slug,
+    };
 }

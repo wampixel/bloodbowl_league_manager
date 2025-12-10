@@ -1,8 +1,11 @@
 {
 	"eslint.enable": true,
 	"eslint.validate": [
+		"javascript",
 		"typescript",
-		"svelte"
+		"svelte",
 	],
-	"editor.formatOnSave": true
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "always"
+	}
 }
