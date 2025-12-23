@@ -12,7 +12,6 @@
     } from 'flowbite-svelte';
     import { Footer } from 'flowbite-svelte';
     import { P } from 'flowbite-svelte';
-
     import { ChevronDownOutline } from 'flowbite-svelte-icons';
 
     let { children } = $props();
@@ -20,25 +19,27 @@
     let activeUrl = $derived(page.url.pathname);
 </script>
 
-<Navbar class="bg-gray-400 dark:bg-neutral-900">
-    <NavBrand href="/"></NavBrand>
+<div class="px-2 md:px-5 lg:px-10 bg-gray-900 text-white h-screen flex flex-col">
+    <Navbar class="border-b border-gray-500 flex">
+        <NavBrand href="/"></NavBrand>
+        <NavHamburger />
+        <NavUl {activeUrl} class="dark:text-white">
+            <NavLi class="cursor-pointer">
+                Seasons
+                <ChevronDownOutline class="h-6 w-6 inline" />
+            </NavLi>
+            <Dropdown simple>
+                <DropdownItem href="/season/2026">2026</DropdownItem>
+            </Dropdown>
+            <NavLi href="/rules">League rules</NavLi>
+        </NavUl>
+    </Navbar>
 
-    <NavHamburger />
-    <NavUl {activeUrl}>
-        <NavLi class="cursor-pointer">
-            Seasons <ChevronDownOutline class="h-6 w-6" />
-        </NavLi>
-        <Dropdown simple>
-            <DropdownItem href="/season/2026">2026</DropdownItem>
-        </Dropdown>
-        <NavLi href="/about">League rules</NavLi>
-    </NavUl>
-</Navbar>
+    <div class="flex grow p-5">
+        {@render children()}
+    </div>
 
-<div class="h-full"></div>
-
-{@render children()}
-
-<Footer>
-    <P>Unofficial and non-commercial fan website</P>
-</Footer>
+    <Footer footerType="socialmedia" class=" dark:bg-gray-900 flex border-t dark:border-gray-500">
+        <P class="dark:text-gray-400 w-full text-center">Unofficial and non-commercial fan website</P>
+    </Footer>
+</div>

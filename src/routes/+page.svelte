@@ -1,12 +1,20 @@
 <script lang="ts">
-  import { P } from 'flowbite-svelte';
-</script>
-<P>
-  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur quos impedit quo, quis quam in distinctio deleniti facere! Ea aliquid maiores iusto obcaecati rerum quisquam repellendus
-  dignissimos rem quo veritatis.
-</P>
+    import { Alert, Card, P } from 'flowbite-svelte';
 
-<P>
-  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur quos impedit quo, quis quam in distinctio deleniti facere! Ea aliquid maiores iusto obcaecati rerum quisquam repellendus
-  dignissimos rem quo veritatis.
-</P>
+</script>
+
+<div class="flex flex-col gap-2 w-full">
+  <Alert class="w-full text-center">
+    <P class="text-center">Prochaine date</P>
+  </Alert>
+  <div class="flex justify-center gap-2 w-full h-full">
+    <Card size="lg" class="p-2">
+      <h4 class="text-center font-bold text-xl">Division A</h4>
+    </Card>
+
+    <Card size="lg" class="p-2">
+      <h4 class="text-center font-bold text-xl">Division B</h4>
+    </Card>
+  </div>
+
+</div>
