@@ -1,8 +1,8 @@
 {
     "Servers": {
         "1": {
-            "Name": "Bloodbowl League Manager",
-            "Group": "Server Group 1",
+            "Name": "db",
+            "Group": "Bloodbowl League Manager",
             "Host": "db",
             "Port": 5432,
             "Username": "postgres",
