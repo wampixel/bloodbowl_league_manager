@@ -7,6 +7,7 @@ declare global {
         // interface PageData {}
         interface PageState {
             modal: boolean
+            path: string
         }
         // interface Platform {}
     }

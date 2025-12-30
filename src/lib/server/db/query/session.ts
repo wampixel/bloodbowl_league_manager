@@ -1,4 +1,4 @@
-import { and } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 import { session } from '../schema/session';
 import { db } from '..';
@@ -14,7 +14,10 @@ const get = async (filters: SQL[]) => db
 
 const insert = async (newSession: NewSession) => db.insert(session).values(newSession);
 
+const del = async (uid: string) => db.delete(session).where(eq(session.uid, uid));
+
 export {
     get,
     insert,
+    del,
 };

@@ -22,6 +22,7 @@
     import { ChevronDownOutline } from 'flowbite-svelte-icons';
 
     import Register from './register/+page.svelte';
+    import Login from './login/+page.svelte';
 
     import type { Pathname } from '$app/types';
 
@@ -56,13 +57,16 @@
         <Dropdown simple triggeredBy="#user-menu">
             {#each ['login', 'register'] as link (link) }
                 <DropdownItem
-                    onclick={async (e) => {
+                    onclick={async (event) => {
                         const result = await preloadData(`/${link}`);
 
-                        e.preventDefault();
+                        event.preventDefault();
 
                         if (result.type === 'loaded' && result.status === 200) {
-                            pushState(resolve(`/${link}` as Pathname), { modal: true });
+                            pushState(
+                                resolve(`/${link}` as Pathname),
+                                { modal: true, path: link },
+                            );
                         }
                     }}
                 >
@@ -83,10 +87,14 @@
     {#if page.state.modal}
     <Modal
         bind:open={page.state.modal}
-        oncancel={() => replaceState('', { modal: false })}
+        oncancel={() => replaceState('', { modal: false, path: '' })}
         onclose={() => history.back()}
     >
-        <Register />
+        {#if page.state.path === 'register'}
+            <Register />
+        {:else}
+            <Login />
+        {/if}
     </Modal>
     {/if}
 </div>
