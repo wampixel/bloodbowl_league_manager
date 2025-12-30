@@ -1,15 +1,12 @@
-import { and } from 'drizzle-orm';
+import { db } from '..';
+import { team } from '../schema/team';
 
-import { db } from '$lib/server/db/index';
-import { team } from '$lib/server/db/schema/team';
+export type NewTeam = typeof team.$inferInsert;
 
-import type { SQL } from 'drizzle-orm';
-
-const get = async (filters: SQL[]) => await db
-    .select()
-    .from(team)
-    .where(filters.length > 0 ? and(...filters) : undefined);
+const get = async () => db.select().from(team);
+const insert = async (newTeams: NewTeam[]) => db.insert(team).values(newTeams).onConflictDoNothing();
 
 export {
     get,
+    insert,
 };
