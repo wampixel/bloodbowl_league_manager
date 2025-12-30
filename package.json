@@ -50,6 +50,7 @@
 		"vitest-browser-svelte": "^2.0.1"
 	},
 	"dependencies": {
+		"bcryptjs": "^3.0.3",
 		"postgres": "^3.4.7"
 	}
 }

@@ -1,6 +1,6 @@
 {
-  "id": "e2c73cc4-4a9d-4916-8748-1b4a0583f850",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "c571d249-9431-48a8-b7fe-2c11b36668e2",
+  "prevId": "f4e45d4f-eddf-4dd5-b678-c594dc9e9047",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -17,9 +17,9 @@
         },
         "expires": {
           "name": "expires",
-          "type": "integer",
+          "type": "cal::local_datetime",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "user": {
           "name": "user",
@@ -97,21 +97,15 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "name": {
-          "name": "name",
+        "username": {
+          "name": "username",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
         },
-        "last_name": {
-          "name": "last_name",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "mail": {
-          "name": "mail",
-          "type": "varchar(256)",
+        "passphrase": {
+          "name": "passphrase",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },

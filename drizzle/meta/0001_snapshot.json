@@ -1,18 +1,51 @@
 {
-  "id": "6564ee47-7cf1-4c55-86d3-3916d33ed8a2",
-  "prevId": "47ed455e-bfdb-4d4b-b2f5-8639634fc358",
+  "id": "f4e45d4f-eddf-4dd5-b678-c594dc9e9047",
+  "prevId": "e2c73cc4-4a9d-4916-8748-1b4a0583f850",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.session": {
+      "name": "session",
+      "schema": "",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "expires": {
+          "name": "expires",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user": {
+          "name": "user",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.team": {
       "name": "team",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "name": {
           "name": "name",
@@ -57,23 +90,31 @@
       "name": "user",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
-        "name": {
-          "name": "name",
+        "username": {
+          "name": "username",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passphrase": {
+          "name": "passphrase",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
-        "last_name": {
-          "name": "last_name",
-          "type": "varchar",
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": "now()"
         }
       },
       "indexes": {},

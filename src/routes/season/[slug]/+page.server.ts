@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 
 import { get } from '$lib/server/db/query/team';
-import { team } from '$lib/server/db/schema/team.js';
+import { team } from '$lib/server/db/schema/team';
 
 export async function load({ params }) {
     return {

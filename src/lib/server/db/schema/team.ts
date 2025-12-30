@@ -1,7 +1,7 @@
-import { integer, pgTable, serial, varchar } from 'drizzle-orm/pg-core';
+import { integer, pgTable, uuid, varchar } from 'drizzle-orm/pg-core';
 
 export const team = pgTable('team', {
-    id: serial('id').primaryKey(),
+    uid: uuid().defaultRandom().primaryKey(),
     name: varchar(),
     player: varchar(),
     win: integer(),
