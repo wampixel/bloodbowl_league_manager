@@ -1,10 +1,12 @@
-export const TEAMS = [
+import type { RoasterRule } from '../schema/rules';
+
+export const TEAMS: RoasterRule[] = [
     { uid: crypto.randomUUID(), reroll_cost: 60000, apothecary: true, name: 'amazones' },
     { uid: crypto.randomUUID(), reroll_cost: 60000, apothecary: true, name: 'orques noirs' },
     { uid: crypto.randomUUID(), reroll_cost: 60000, apothecary: true, name: 'bretonniens' },
-    { uid: crypto.randomUUID(), reroll_cost: 50000, apothecary: true, name: 'élus du chaos' },
+    // { uid: crypto.randomUUID(), reroll_cost: 50000, apothecary: true, name: 'élus du chaos' },
     { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: true, name: 'nains du chaos' },
-    { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: true, name: 'renégats du chaos' },
+    // { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: true, name: 'renégats du chaos' },
     { uid: crypto.randomUUID(), reroll_cost: 50000, apothecary: true, name: 'elfes noirs' },
     { uid: crypto.randomUUID(), reroll_cost: 60000, apothecary: true, name: 'nains' },
     { uid: crypto.randomUUID(), reroll_cost: 50000, apothecary: true, name: 'union elfique' },
@@ -19,13 +21,13 @@ export const TEAMS = [
     { uid: crypto.randomUUID(), reroll_cost: 60000, apothecary: true, name: 'nordiques' },
     { uid: crypto.randomUUID(), reroll_cost: 60000, apothecary: false, name: 'nurgle' },
     { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: true, name: 'ogres' },
-    { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: true, name: 'alliance du vieux monde' },
+    // { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: true, name: 'alliance du vieux monde' },
     { uid: crypto.randomUUID(), reroll_cost: 60000, apothecary: true, name: 'orques' },
     { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: false, name: 'morts ambulants' },
     { uid: crypto.randomUUID(), reroll_cost: 50000, apothecary: true, name: 'skavens' },
     { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: true, name: 'snotlings' },
     { uid: crypto.randomUUID(), reroll_cost: 60000, apothecary: false, name: 'rois des tombes' },
-    { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: true, name: 'bas-fonds' },
+    // { uid: crypto.randomUUID(), reroll_cost: 70000, apothecary: true, name: 'bas-fonds' },
     { uid: crypto.randomUUID(), reroll_cost: 60000, apothecary: true, name: 'vampires' },
     { uid: crypto.randomUUID(), reroll_cost: 50000, apothecary: true, name: 'elfes sylvains' },
 ];

@@ -1,8 +1,6 @@
-import type { skill } from '../schema/rules';
+import type { SkillRule } from '../schema/rules';
 
-type NewSkill = typeof skill.$inferInsert;
-
-export const SKILLS: NewSkill[] = [
+export const SKILLS: SkillRule[] = [
     // agility
     { uid: crypto.randomUUID(), type: 'agility', mandatory: false, name: 'réception' },
     { uid: crypto.randomUUID(), type: 'agility', mandatory: false, name: 'réception plongeante' },
