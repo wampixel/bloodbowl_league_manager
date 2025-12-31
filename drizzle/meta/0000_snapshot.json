@@ -1,44 +1,12 @@
 {
-  "id": "e2c73cc4-4a9d-4916-8748-1b4a0583f850",
+  "id": "4beea183-db24-4aad-a9a7-f3fa449711c2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.session": {
-      "name": "session",
-      "schema": "",
-      "columns": {
-        "uid": {
-          "name": "uid",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "expires": {
-          "name": "expires",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "user": {
-          "name": "user",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.team": {
-      "name": "team",
-      "schema": "",
+    "league.roaster": {
+      "name": "roaster",
+      "schema": "league",
       "columns": {
         "uid": {
           "name": "uid",
@@ -53,27 +21,48 @@
           "primaryKey": false,
           "notNull": false
         },
-        "player": {
-          "name": "player",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "win": {
-          "name": "win",
+        "reroll_cost": {
+          "name": "reroll_cost",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
-        "loss": {
-          "name": "loss",
-          "type": "integer",
+        "apothecary": {
+          "name": "apothecary",
+          "type": "boolean",
           "primaryKey": false,
           "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.session": {
+      "name": "session",
+      "schema": "",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
-        "year": {
-          "name": "year",
-          "type": "integer",
+        "expire": {
+          "name": "expire",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "user": {
+          "name": "user",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": false
         }
@@ -97,21 +86,15 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "name": {
-          "name": "name",
+        "username": {
+          "name": "username",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
         },
-        "last_name": {
-          "name": "last_name",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "mail": {
-          "name": "mail",
-          "type": "varchar(256)",
+        "passphrase": {
+          "name": "passphrase",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -130,10 +113,89 @@
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
+    },
+    "rules.roaster": {
+      "name": "roaster",
+      "schema": "rules",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reroll_cost": {
+          "name": "reroll_cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "apothecary": {
+          "name": "apothecary",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "rules.skill": {
+      "name": "skill",
+      "schema": "rules",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mandatory": {
+          "name": "mandatory",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     }
   },
   "enums": {},
-  "schemas": {},
+  "schemas": {
+    "league": "league",
+    "rules": "rules"
+  },
   "sequences": {},
   "roles": {},
   "policies": {},

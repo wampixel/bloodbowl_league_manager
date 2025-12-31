@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm';
 
-import { session } from '../schema/session';
-import { db } from '..';
+import { db } from '$lib/server/db';
+import { session } from '$lib/server/db/schema/public';
 
 import type { SQL } from 'drizzle-orm';
 

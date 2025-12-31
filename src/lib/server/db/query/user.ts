@@ -1,7 +1,7 @@
 import { and } from 'drizzle-orm';
 
-import { db } from '..';
-import { user } from '../schema/user';
+import { db } from '$lib/server/db';
+import { user } from '$lib/server/db/schema/public';
 
 import type { SQL } from 'drizzle-orm';
 

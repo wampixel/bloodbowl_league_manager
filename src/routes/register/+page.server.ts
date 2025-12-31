@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 
 import { get, insert } from '$lib/server/db/query/user';
-import { user } from '$lib/server/db/schema/user';
+import { user } from '$lib/server/db/schema/public.js';
 
 export const actions = {
     default: async ({ request }) => {
@@ -31,5 +31,7 @@ export const actions = {
         });
 
         // Set session and token here
+
+        return { message: 'Account successfully created ' };
     },
 };

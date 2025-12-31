@@ -5,57 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1767026416055,
-      "tag": "0000_sudden_randall_flagg",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1767049091701,
-      "tag": "0001_material_dreaming_celestial",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1767063138919,
-      "tag": "0002_daily_carlie_cooper",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1767063503450,
-      "tag": "0003_tricky_bug",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1767105594051,
-      "tag": "0004_solid_rick_jones",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1767110077056,
-      "tag": "0005_remarkable_meltdown",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1767110353532,
-      "tag": "0006_thick_catseye",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1767115102025,
-      "tag": "0007_peaceful_the_initiative",
+      "when": 1767195425806,
+      "tag": "0000_flaky_silvermane",
       "breakpoints": true
     }
   ]

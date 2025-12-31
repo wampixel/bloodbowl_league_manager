@@ -1,4 +1,4 @@
-import type { skill } from '../schema/skill';
+import type { skill } from '../schema/rules';
 
 type NewSkill = typeof skill.$inferInsert;
 

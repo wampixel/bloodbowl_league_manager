@@ -1,5 +1,5 @@
-import { db } from '..';
-import { skill } from '../schema/skill';
+import { db } from '$lib/server/db';
+import { skill } from '$lib/server/db/schema/rules';
 
 type NewSkill = typeof skill.$inferInsert;
 

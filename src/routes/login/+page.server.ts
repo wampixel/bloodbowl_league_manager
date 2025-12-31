@@ -5,8 +5,8 @@ import { fail } from '@sveltejs/kit';
 import { get as getUser } from '$lib/server/db/query/user';
 import { get as getSession } from '$lib/server/db/query/session';
 
-import { user as userSchema } from '$lib/server/db/schema/user';
-import { session as sessionSchema } from '$lib/server/db/schema/session';
+import { user as userSchema } from '$lib/server/db/tables/user';
+import { session as sessionSchema } from '$lib/server/db/tables/session';
 import { createSession } from '$lib/server/session.js';
 
 const ERROR = 'Invalid username or password';
