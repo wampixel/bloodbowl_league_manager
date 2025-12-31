@@ -6,7 +6,7 @@ export type NewTeam = typeof roasterTable.$inferInsert;
 const get = async () => db.select().from(roasterTable);
 const insert = async (newTeams: NewTeam[]) => db.insert(roasterTable).values(newTeams).onConflictDoNothing();
 
-export {
+export default {
     get,
     insert,
 };

@@ -6,7 +6,7 @@ type NewSkill = typeof skillTable.$inferInsert;
 const get = async () => db.select().from(skillTable);
 const insert = async (newSkills: NewSkill[]) => db.insert(skillTable).values(newSkills).onConflictDoNothing();
 
-export {
+export default {
     get,
     insert,
 };
