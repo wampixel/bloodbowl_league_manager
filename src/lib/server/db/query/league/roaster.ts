@@ -1,7 +1,7 @@
 import { and } from 'drizzle-orm';
 
 import { db } from '$lib/server/db/index';
-import { roaster } from '$lib/server/db/schema/roaster';
+import { roaster } from '$lib/server/db/schema/league';
 
 import type { SQL } from 'drizzle-orm';
 
