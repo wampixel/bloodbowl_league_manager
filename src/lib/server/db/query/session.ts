@@ -1,20 +1,20 @@
 import { and, eq } from 'drizzle-orm';
 
 import { db } from '$lib/server/db';
-import { session } from '$lib/server/db/schema/public';
+import { sessionTable } from '$lib/server/db/schema/public';
 
 import type { SQL } from 'drizzle-orm';
 
-type NewSession = typeof session.$inferInsert;
+type NewSession = typeof sessionTable.$inferInsert;
 
 const get = async (filters: SQL[]) => db
     .select()
-    .from(session)
+    .from(sessionTable)
     .where(filters.length > 0 ? and(...filters) : undefined);
 
-const insert = async (newSession: NewSession) => db.insert(session).values(newSession);
+const insert = async (newSession: NewSession) => db.insert(sessionTable).values(newSession);
 
-const del = async (uid: string) => db.delete(session).where(eq(session.uid, uid));
+const del = async (uid: string) => db.delete(sessionTable).where(eq(sessionTable.uid, uid));
 
 export {
     get,

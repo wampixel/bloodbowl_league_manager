@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { eq } from 'drizzle-orm';
 
 import { get, insert, del } from './db/query/session';
-import { session as sessionTable } from './db/schema/public';
+import { sessionTable } from './db/schema/public';
 
 const SESSION_DURATION = 1000 * 60 * 60;
 

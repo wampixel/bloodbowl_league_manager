@@ -1,10 +1,10 @@
 import { db } from '$lib/server/db';
-import { roaster } from '$lib/server/db/schema/rules';
+import { roasterTable } from '$lib/server/db/schema/rules';
 
-export type NewTeam = typeof roaster.$inferInsert;
+export type NewTeam = typeof roasterTable.$inferInsert;
 
-const get = async () => db.select().from(roaster);
-const insert = async (newTeams: NewTeam[]) => db.insert(roaster).values(newTeams).onConflictDoNothing();
+const get = async () => db.select().from(roasterTable);
+const insert = async (newTeams: NewTeam[]) => db.insert(roasterTable).values(newTeams).onConflictDoNothing();
 
 export {
     get,

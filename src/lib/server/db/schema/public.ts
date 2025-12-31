@@ -1,13 +1,13 @@
 import { pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
-export const user = pgTable('user', {
+export const userTable = pgTable('user', {
     uid: uuid().defaultRandom().primaryKey(),
     username: varchar({ length: 256 }),
     passphrase: varchar(),
     created_at: timestamp().defaultNow(),
 });
 
-export const session = pgTable('session', {
+export const sessionTable = pgTable('session', {
     uid: uuid().defaultRandom().primaryKey(),
     expire: timestamp({ withTimezone: true }).defaultNow().notNull(),
     user: uuid(),
