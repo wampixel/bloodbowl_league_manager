@@ -4,5 +4,5 @@ export const team = pgTable('team', {
     uid: uuid().defaultRandom().primaryKey(),
     name: varchar(),
     reroll_cost: integer(),
-    Apothecary: boolean(),
+    apothecary: boolean(),
 });
