@@ -1,29 +1,56 @@
-# sv
+# BLoodbowl League manager
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This webapp can be used to manage your bloobbowl league. With this webapp, you can:
 
-## Creating a project
+- Create your own roaster
+- manage your team
+- create your account
 
-If you're seeing this, you've probably already done this step. Congrats!
+> The rulebook is mandatory, not all informations are provided.
 
+## Database
+
+This project use PostgresDB with drizzle ORM.
+
+With drizzle you can run some npm scripts:
+
+- `db:generate`to create new migration file
+- `db:push`to apply modifications on DB
+- `db:migrate` initialize DB
+
+## Run on dev
+
+To run this project on dev, you need docker.
+
+You'll need to create 3 env files:
+- `.env` (for webapp)
+- `.env.db` (for postgres)
+- `.env.pgadmin` (for pgadmin)
+
+with:
+
+`.env`
 ```sh
-# create a new project in the current directory
-npx sv create
+DATABASE_URL="postgres://postgres:mybestpassw0rd!@localhost:5432/bb_manager"
+````
 
-# create a new project in my-app
-npx sv create my-app
+`.env.db`
+```sh
+POSTGRES_USER="postgres"
+POSTGRES_PASSWORD="mybestpassw0rd!"
+POSTGRES_DB="bb_manager"
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
+`.env.pgadmin`
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+PGADMIN_DEFAULT_EMAIL="admin@localhost.com"
+PGADMIN_DEFAULT_PASSWORD="MySecretPGADMINPassw0rd!"
+PGADMIN_DISABLE_POSTFIX="true"
 ```
+
+once files are created, you can run docker with the command `docker compose up`
+
+And then run the project with the command `npm run dev`
 
 ## Building
 
@@ -42,5 +69,4 @@ You can preview the production build with `npm run preview`.
 
 - First, code
 - second: ?
-- Last: deploy
-- update readme
+- Last: deploy and enjoy
