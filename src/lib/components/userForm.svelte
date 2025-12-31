@@ -28,7 +28,7 @@
 
             setTimeout(() => {
                 replaceState('', { modal: false, path: '' });
-            }, 3000);
+            }, 2000);
         }
     };
 }}>
