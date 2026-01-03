@@ -1,14 +1,9 @@
-import { and } from 'drizzle-orm';
-
-import { db } from '$lib/server/db/index';
 import { roasterTable } from '$lib/server/db/schema/league';
 
 import type { SQL } from 'drizzle-orm';
+import generic from '../generic';
 
-const get = async (filters: SQL[]) => db
-    .select()
-    .from(roasterTable)
-    .where(filters.length > 0 ? and(...filters) : undefined);
+const get = async (filters: SQL[]) => generic.get(roasterTable, filters);
 
 export {
     get,

@@ -1,16 +1,12 @@
-import { and } from 'drizzle-orm';
-
 import { db } from '$lib/server/db';
+import generic from '$lib/server/db/query/generic';
 import { userTable } from '$lib/server/db/schema/public';
 
 import type { SQL } from 'drizzle-orm';
 
 type NewUser = typeof userTable.$inferInsert;
 
-const get = async (filters: SQL[]) => db
-    .select()
-    .from(userTable)
-    .where(filters.length > 0 ? and(...filters) : undefined);
+const get = async (filters: SQL[]) => generic.get(userTable, filters);
 
 const insert = async (newUser: NewUser) => db.insert(userTable).values(newUser);
 
