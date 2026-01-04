@@ -8,7 +8,11 @@ export type NewPlayer = typeof playerTable.$inferInsert;
 
 const get = async (filters: SQL[]) => generic.get(playerTable, filters);
 
-const insert = async (newPlayers: NewPlayer) => db.insert(playerTable).values(newPlayers).onConflictDoNothing();
+const insert = async (newPlayers: NewPlayer) => db
+    .insert(playerTable)
+    .values(newPlayers)
+    .onConflictDoNothing()
+    .returning();
 
 export default {
     get,

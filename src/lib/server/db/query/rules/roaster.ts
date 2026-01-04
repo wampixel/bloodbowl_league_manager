@@ -7,7 +7,12 @@ import generic from '../generic';
 export type NewTeam = typeof roasterTable.$inferInsert;
 
 const get = async (filters: SQL[]) => generic.get(roasterTable, filters);
-const insert = async (newTeams: NewTeam[]) => db.insert(roasterTable).values(newTeams).onConflictDoNothing();
+
+const insert = async (newTeams: NewTeam[]) => db
+    .insert(roasterTable)
+    .values(newTeams)
+    .onConflictDoNothing()
+    .returning();
 
 export default {
     get,

@@ -1,0 +1,412 @@
+{
+  "id": "32b6574a-bd81-45d4-b57b-7e2a7cfd4613",
+  "prevId": "f6d73299-bb9f-4391-994f-ed9645d1efbe",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "league.roaster": {
+      "name": "roaster",
+      "schema": "league",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reroll_cost": {
+          "name": "reroll_cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "apothecary": {
+          "name": "apothecary",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.session": {
+      "name": "session",
+      "schema": "",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "expire": {
+          "name": "expire",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "user": {
+          "name": "user",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passphrase": {
+          "name": "passphrase",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "rules.player": {
+      "name": "player",
+      "schema": "rules",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(25)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "roaster": {
+          "name": "roaster",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "keywords": {
+          "name": "keywords",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cost": {
+          "name": "cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "move": {
+          "name": "move",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "strength": {
+          "name": "strength",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "agility": {
+          "name": "agility",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing": {
+          "name": "passing",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "armour": {
+          "name": "armour",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "primary": {
+          "name": "primary",
+          "type": "varchar(60)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "secondary": {
+          "name": "secondary",
+          "type": "varchar(60)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "player_roaster_roaster_uid_fk": {
+          "name": "player_roaster_roaster_uid_fk",
+          "tableFrom": "player",
+          "tableTo": "roaster",
+          "schemaTo": "rules",
+          "columnsFrom": [
+            "roaster"
+          ],
+          "columnsTo": [
+            "uid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "min_move": {
+          "name": "min_move",
+          "value": "\"rules\".\"player\".\"move\" >= 1"
+        },
+        "max_move": {
+          "name": "max_move",
+          "value": "\"rules\".\"player\".\"move\" <= 9"
+        },
+        "min_strength": {
+          "name": "min_strength",
+          "value": "\"rules\".\"player\".\"move\" >= 1"
+        },
+        "max_strength": {
+          "name": "max_strength",
+          "value": "\"rules\".\"player\".\"move\" <= 8"
+        },
+        "min_agility": {
+          "name": "min_agility",
+          "value": "\"rules\".\"player\".\"move\" >= 1"
+        },
+        "max_agility": {
+          "name": "max_agility",
+          "value": "\"rules\".\"player\".\"move\" <= 6"
+        },
+        "min_passing": {
+          "name": "min_passing",
+          "value": "\"rules\".\"player\".\"move\" >= 1"
+        },
+        "max_passing": {
+          "name": "max_passing",
+          "value": "\"rules\".\"player\".\"move\" <= 6"
+        },
+        "min_armour": {
+          "name": "min_armour",
+          "value": "\"rules\".\"player\".\"move\" >= 3"
+        },
+        "max_armour": {
+          "name": "max_armour",
+          "value": "\"rules\".\"player\".\"move\" <= 11"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "rules.playerToSkill": {
+      "name": "playerToSkill",
+      "schema": "rules",
+      "columns": {
+        "player": {
+          "name": "player",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "skill": {
+          "name": "skill",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "playerToSkill_player_player_uid_fk": {
+          "name": "playerToSkill_player_player_uid_fk",
+          "tableFrom": "playerToSkill",
+          "tableTo": "player",
+          "schemaTo": "rules",
+          "columnsFrom": [
+            "player"
+          ],
+          "columnsTo": [
+            "uid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "playerToSkill_skill_skill_uid_fk": {
+          "name": "playerToSkill_skill_skill_uid_fk",
+          "tableFrom": "playerToSkill",
+          "tableTo": "skill",
+          "schemaTo": "rules",
+          "columnsFrom": [
+            "skill"
+          ],
+          "columnsTo": [
+            "uid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "playerToSkill_player_skill_pk": {
+          "name": "playerToSkill_player_skill_pk",
+          "columns": [
+            "player",
+            "skill"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "rules.roaster": {
+      "name": "roaster",
+      "schema": "rules",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reroll_cost": {
+          "name": "reroll_cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "apothecary": {
+          "name": "apothecary",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "rules.skill": {
+      "name": "skill",
+      "schema": "rules",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mandatory": {
+          "name": "mandatory",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {
+    "league": "league",
+    "rules": "rules"
+  },
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

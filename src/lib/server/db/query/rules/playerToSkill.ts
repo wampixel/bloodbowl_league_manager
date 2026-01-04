@@ -1,12 +1,18 @@
-import { ilike } from 'drizzle-orm';
-import { db } from '../..';
-import { playerToSkill } from '../../schema/rules';
+import { eq } from 'drizzle-orm';
+import { db } from '$lib/server/db';
+import { playerToSkillTable } from '$lib/server/db/schema/rules';
+import generic from '../generic';
 
-const get = async (uid: string) => db
-    .select()
-    .from(playerToSkill)
-    .where(ilike(playerToSkill.player, uid));
+export type NewPlayerToSkill = typeof playerToSkillTable.$inferInsert;
 
-export {
+const get = async (uid: string) => generic.get(playerToSkillTable, [eq(playerToSkillTable.player, uid)]);
+
+const insert = async (newPtS: NewPlayerToSkill[]) => db
+    .insert(playerToSkillTable)
+    .values(newPtS)
+    .onConflictDoNothing();
+
+export default {
     get,
+    insert,
 };

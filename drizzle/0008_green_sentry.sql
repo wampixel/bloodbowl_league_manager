@@ -1,0 +1,1 @@
+ALTER TABLE "rules"."playerToSkill" ALTER COLUMN "display" SET DATA TYPE varchar(30);

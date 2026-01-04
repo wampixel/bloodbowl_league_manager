@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { boolean, check, integer, pgSchema, smallint, uuid, varchar } from 'drizzle-orm/pg-core';
+import { boolean, check, integer, pgSchema, primaryKey, smallint, uuid, varchar } from 'drizzle-orm/pg-core';
 
 export const rulesSchema = pgSchema('rules');
 
@@ -27,9 +27,10 @@ export const playerTable = rulesSchema.table(
     'player',
     {
         uid: uuid().defaultRandom().primaryKey(),
-        name: varchar({ length: 25 }),
+        name: varchar({ length: 30 }),
         roaster: uuid().references(() => roasterTable.uid),
         keywords: varchar({ length: 256 }),
+        quantity: integer(),
         cost: integer(),
         move: smallint(),
         strength: smallint(),
@@ -40,17 +41,30 @@ export const playerTable = rulesSchema.table(
         secondary: varchar({ length: 60 }),
     },
     table => [
+        check('max_quantity', sql`${table.quantity} <= 16`),
         check('min_move', sql`${table.move} >= 1`),
         check('max_move', sql`${table.move} <= 9`),
-        check('min_strength', sql`${table.move} >= 1`),
-        check('max_strength', sql`${table.move} <= 8`),
-        check('min_agility', sql`${table.move} >= 1`),
-        check('max_agility', sql`${table.move} <= 6`),
-        check('min_passing', sql`${table.move} >= 1`),
-        check('max_passing', sql`${table.move} <= 6`),
-        check('min_armour', sql`${table.move} >= 3`),
-        check('max_armour', sql`${table.move} <= 11`),
+        check('min_strength', sql`${table.strength} >= 1`),
+        check('max_strength', sql`${table.strength} <= 8`),
+        check('min_agility', sql`${table.agility} >= 1`),
+        check('max_agility', sql`${table.agility} <= 6`),
+        check('min_passing', sql`${table.passing} >= 0`),
+        check('max_passing', sql`${table.passing} <= 6`),
+        check('min_armour', sql`${table.armour} >= 3`),
+        check('max_armour', sql`${table.armour} <= 11`),
     ],
+);
+
+export const playerToSkillTable = rulesSchema.table(
+    'playerToSkill',
+    {
+        player: uuid().notNull().references(() => playerTable.uid),
+        skill: uuid().notNull().references(() => skillTable.uid),
+        display: varchar({ length: 30 }),
+    },
+    table => ([
+        primaryKey({ columns: [table.player, table.skill] }),
+    ]),
 );
 
 // Types export
