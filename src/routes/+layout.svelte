@@ -38,11 +38,12 @@
     <Navbar class="border-b border-gray-500 flex">
         <NavBrand href={resolve('/')}>logo</NavBrand>
 
-        <NavUl {activeUrl} class="dark:text-white">
-            <NavLi class="cursor-pointer">
-                Seasons
+        <NavUl {activeUrl} class="dark:text-white capitalize">
+            <NavLi class="cursor-pointer capitalize">
+                seasons
                 <ChevronDownOutline class="h-6 w-6 inline" />
             </NavLi>
+            <NavLi href={resolve('/roasters')}>équipes</NavLi>
             <Dropdown simple>
                 <DropdownItem href={resolve(`/season/${year}`)}>current season</DropdownItem>
             </Dropdown>
@@ -76,7 +77,7 @@
         </Dropdown>
     </Navbar>
 
-    <div class="flex grow p-5">
+    <div class="flex grow p-5 min-h-0 min-w-0 justify-center">
         {@render children()}
     </div>
 
