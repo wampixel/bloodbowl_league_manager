@@ -71,19 +71,19 @@ export const playerSkillrelations = relations(playerTable, ({ many }) => ({
     playerToSkill: many(playerToSkillTable),
 }));
 
-export const SkillRelation = relations(skillTable, ({ many }) => ({
-    playerToSkill: many(playerToSkillTable),
-}));
+// export const SkillRelation = relations(skillTable, ({ many }) => ({
+//     playerToSkill: many(playerToSkillTable),
+// }));
 
 export const playerToSkillRelation = relations(playerToSkillTable, ({ one }) => ({
     player: one(playerTable, {
         fields: [playerToSkillTable.player],
         references: [playerTable.uid],
     }),
-    skill: one(skillTable, {
-        fields: [playerToSkillTable.skill],
-        references: [skillTable.uid],
-    }),
+    // skill: one(skillTable, {
+    //     fields: [playerToSkillTable.skill],
+    //     references: [skillTable.uid],
+    // }),
 }));
 
 // Types export
