@@ -1,11 +1,11 @@
-import type { NewPlayer } from '../query/rules/player';
+import type { NewPlayerRule } from '../schema/rules';
 
 type Item = {
     reroll_cost: number
     apothecary: boolean
     players: (
         { skills: string[] }
-        & NewPlayer
+        & NewPlayerRule
     ) []
 };
 
@@ -38,7 +38,7 @@ type RulesStruct = {
 
 };
 
-export const TEAM_RULES: RulesStruct = {
+export const ROASTERS_RULES: RulesStruct = {
     'amazones': {
         reroll_cost: 60000,
         apothecary: true,

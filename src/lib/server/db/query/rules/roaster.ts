@@ -3,9 +3,9 @@ import { roasterTable } from '$lib/server/db/schema/rules';
 
 import type { NewRoasterRule } from '$lib/server/db/schema/rules';
 
-const insert = async (newTeams: NewRoasterRule[]) => db
+const insert = async (newRoasters: NewRoasterRule[]) => db
     .insert(roasterTable)
-    .values(newTeams)
+    .values(newRoasters)
     .onConflictDoNothing()
     .returning();
 

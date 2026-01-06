@@ -12,7 +12,7 @@ import rulesPlayerToSkill from './query/rules/playerToSkill';
 
 import type { NewPlayerToSkill } from './schema/rules';
 
-import { TEAM_RULES } from './static/rules';
+import { ROASTERS_RULES } from './static/rules';
 import { SKILLS } from './static/skills';
 
 // import type { NewPlayerToSkill } from './query/rules/playerToSkill';
@@ -25,49 +25,51 @@ export const seed = async () => {
     if (missingSkills.length > 0)
         await rulesSkill.insert(missingSkills);
 
-    // Teams and players
-    Object.entries(TEAM_RULES).forEach(async ([name, teamObject]) => {
-        const { players, ...team } = teamObject;
+    // Roasters and players
+    Object.entries(ROASTERS_RULES).forEach(async ([name, team]) => {
+        const { players, ...roasterData } = team;
 
-        let teamEntry = await db.query.roasterTable.findMany({ where: eq(roasterTable.name, name) });
-        if (teamEntry.length !== 1)
-            teamEntry = await rulesRoaster.insert([{
+        let roaster = await db.query.roasterTable.findFirst({ where: eq(roasterTable.name, name) });
+        if (!roaster)
+            roaster = (await rulesRoaster.insert([{
                 uid: crypto.randomUUID(),
                 name,
-                ...team,
-            }]);
+                ...roasterData,
+            }]))[0];
 
         for (const item of players) {
             const { skills, ...player } = item;
             const filters = [
                 normalizedMatch(playerTable.name, player.name as string),
-                eq(playerTable.roaster, teamEntry[0].uid as string),
+                eq(playerTable.roaster, roaster.uid as string),
             ];
 
-            if ((await db.query.playerTable.findMany({ where: and(...filters) })).length > 0)
+            if (await db.query.playerTable.findFirst({ where: and(...filters) }))
                 continue;
 
             const newPlayer = await rulesPlayer.insert({
                 uid: crypto.randomUUID(),
-                roaster: teamEntry[0].uid as string,
+                roaster: roaster.uid as string,
                 ...player,
             });
             if (newPlayer.length !== 1)
                 console.error(`Error while adding ${item}`);
 
-            const playerToSkills = skills.reduce(async (buffer: NewPlayerToSkill[], skill: string) => {
-                const found = await db.query.skillTable.findFirst({ where: normalizedMatch(skillTable.name, skill) });
-                if (found) {
-                    return [
-                        ...buffer,
+            let playerToSkills: NewPlayerToSkill[] = [];
+            for (const skill of skills) {
+                const found = await db.query.skillTable.findFirst({
+                    where: normalizedMatch(skillTable.name, skill),
+                });
+                if (found)
+                    playerToSkills = [
+                        ...playerToSkills,
                         {
                             player: newPlayer[0].uid,
                             skill: found.uid,
                             display: skill,
-                        } as NewPlayerToSkill,
+                        },
                     ];
-                }
-            }, []);
+            }
 
             if (playerToSkills.length > 0)
                 await rulesPlayerToSkill.insert(await Promise.all(playerToSkills));
