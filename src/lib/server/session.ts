@@ -1,8 +1,9 @@
 import { randomUUID } from 'crypto';
 import { eq } from 'drizzle-orm';
 
-import { get, insert, del } from './db/query/session';
+import { insert, del } from './db/query/session';
 import { sessionTable } from './db/schema/public';
+import { db } from './db';
 
 const SESSION_DURATION = 1000 * 60 * 60;
 
@@ -18,12 +19,10 @@ const createSession = async (user: string) => {
 };
 
 const verifySession = async (uid: string) => {
-    const result = await get([eq(sessionTable.uid, uid)]);
-
-    if (result.length < 0)
+    const session = await db.query.sessionTable.findFirst({ where: eq(sessionTable.uid, uid) });
+    if (session == undefined)
         return false;
 
-    const session = result[0];
     if (session.expire < new Date(Date.now())) {
         await del(uid);
         return false;

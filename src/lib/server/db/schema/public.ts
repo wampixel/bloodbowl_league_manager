@@ -12,3 +12,9 @@ export const sessionTable = pgTable('session', {
     expire: timestamp({ withTimezone: true }).defaultNow().notNull(),
     user: uuid(),
 });
+
+export type NewUser = typeof userTable.$inferInsert;
+export type NewSession = typeof sessionTable.$inferInsert;
+
+export * from './league';
+export * from './rules';

@@ -1,11 +1,7 @@
-import { eq } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { playerToSkillTable } from '$lib/server/db/schema/rules';
-import generic from '../generic';
 
-export type NewPlayerToSkill = typeof playerToSkillTable.$inferInsert;
-
-const get = async (uid: string) => generic.get(playerToSkillTable, [eq(playerToSkillTable.player, uid)]);
+import type { NewPlayerToSkill } from '$lib/server/db/schema/rules';
 
 const insert = async (newPtS: NewPlayerToSkill[]) => db
     .insert(playerToSkillTable)
@@ -13,6 +9,5 @@ const insert = async (newPtS: NewPlayerToSkill[]) => db
     .onConflictDoNothing();
 
 export default {
-    get,
     insert,
 };

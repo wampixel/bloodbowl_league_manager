@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import { boolean, check, integer, pgSchema, primaryKey, smallint, uuid, varchar } from 'drizzle-orm/pg-core';
 
 export const rulesSchema = pgSchema('rules');
@@ -67,7 +67,27 @@ export const playerToSkillTable = rulesSchema.table(
     ]),
 );
 
+export const playerSkillrelations = relations(playerTable, ({ many }) => ({
+    playerToSkill: many(playerToSkillTable),
+}));
+
+export const SkillRelation = relations(skillTable, ({ many }) => ({
+    playerToSkill: many(playerToSkillTable),
+}));
+
+export const playerToSkillRelation = relations(playerToSkillTable, ({ one }) => ({
+    player: one(playerTable, {
+        fields: [playerToSkillTable.player],
+        references: [playerTable.uid],
+    }),
+    skill: one(skillTable, {
+        fields: [playerToSkillTable.skill],
+        references: [skillTable.uid],
+    }),
+}));
+
 // Types export
-export type RoasterRule = typeof roasterTable.$inferInsert;
-export type SkillRule = typeof skillTable.$inferInsert;
-export type PlayerRule = typeof playerTable.$inferInsert;
+export type NewRoasterRule = typeof roasterTable.$inferInsert;
+export type NewSkillRule = typeof skillTable.$inferInsert;
+export type NewPlayerRule = typeof playerTable.$inferInsert;
+export type NewPlayerToSkill = typeof playerToSkillTable.$inferInsert;

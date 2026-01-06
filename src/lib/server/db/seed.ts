@@ -1,4 +1,6 @@
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
+
+import { db } from '.';
 
 import { playerTable, roasterTable, skillTable } from './schema/rules';
 
@@ -8,14 +10,16 @@ import rulesSkill from './query/rules/skill';
 import rulesPlayer from './query/rules/player';
 import rulesPlayerToSkill from './query/rules/playerToSkill';
 
+import type { NewPlayerToSkill } from './schema/rules';
+
 import { TEAM_RULES } from './static/rules';
 import { SKILLS } from './static/skills';
 
-import type { NewPlayerToSkill } from './query/rules/playerToSkill';
+// import type { NewPlayerToSkill } from './query/rules/playerToSkill';
 
 export const seed = async () => {
     // Skills
-    const allSkills = await rulesSkill.get([]);
+    const allSkills = await db.query.skillTable.findMany({});
     const missingSkills = SKILLS.filter(skill => !allSkills.some(e => e.name === skill.name));
 
     if (missingSkills.length > 0)
@@ -25,7 +29,7 @@ export const seed = async () => {
     Object.entries(TEAM_RULES).forEach(async ([name, teamObject]) => {
         const { players, ...team } = teamObject;
 
-        let teamEntry = await rulesRoaster.get([eq(roasterTable.name, name)]);
+        let teamEntry = await db.query.roasterTable.findMany({ where: eq(roasterTable.name, name) });
         if (teamEntry.length !== 1)
             teamEntry = await rulesRoaster.insert([{
                 uid: crypto.randomUUID(),
@@ -40,7 +44,7 @@ export const seed = async () => {
                 eq(playerTable.roaster, teamEntry[0].uid as string),
             ];
 
-            if ((await rulesPlayer.get(filters)).length > 0)
+            if ((await db.query.playerTable.findMany({ where: and(...filters) })).length > 0)
                 continue;
 
             const newPlayer = await rulesPlayer.insert({
@@ -51,16 +55,19 @@ export const seed = async () => {
             if (newPlayer.length !== 1)
                 console.error(`Error while adding ${item}`);
 
-            const playerToSkills = skills.map(async (skill: string) => {
-                const found = await rulesSkill.get([normalizedMatch(skillTable.name, skill)]);
-                if (found.length !== 1)
-                    console.error(`Cannot add ${skill} for ${player.name}`);
-                return {
-                    player: newPlayer[0].uid,
-                    skill: found[0].uid,
-                    display: skill,
-                } as NewPlayerToSkill;
-            });
+            const playerToSkills = skills.reduce(async (buffer: NewPlayerToSkill[], skill: string) => {
+                const found = await db.query.skillTable.findFirst({ where: normalizedMatch(skillTable.name, skill) });
+                if (found) {
+                    return [
+                        ...buffer,
+                        {
+                            player: newPlayer[0].uid,
+                            skill: found.uid,
+                            display: skill,
+                        } as NewPlayerToSkill,
+                    ];
+                }
+            }, []);
 
             if (playerToSkills.length > 0)
                 await rulesPlayerToSkill.insert(await Promise.all(playerToSkills));

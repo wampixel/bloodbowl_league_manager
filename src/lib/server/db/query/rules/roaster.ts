@@ -1,20 +1,14 @@
 import { db } from '$lib/server/db';
 import { roasterTable } from '$lib/server/db/schema/rules';
 
-import type { SQL } from 'drizzle-orm';
-import generic from '../generic';
+import type { NewRoasterRule } from '$lib/server/db/schema/rules';
 
-export type NewTeam = typeof roasterTable.$inferInsert;
-
-const get = async (filters: SQL[]) => generic.get(roasterTable, filters);
-
-const insert = async (newTeams: NewTeam[]) => db
+const insert = async (newTeams: NewRoasterRule[]) => db
     .insert(roasterTable)
     .values(newTeams)
     .onConflictDoNothing()
     .returning();
 
 export default {
-    get,
     insert,
 };
