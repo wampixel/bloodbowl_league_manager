@@ -50,6 +50,8 @@ PGADMIN_DISABLE_POSTFIX="true"
 
 once files are created, you can run docker with the command `docker compose up`
 
+Now you can apply migrations on Database with the command: `npm run db:migrate`. This command will create all tables and schema on DB.
+
 And then run the project with the command `npm run dev`
 
 ## Building
@@ -64,9 +66,9 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
 
-
 ## Roadmap
 
 - First, code
 - second: ?
+- TESTS
 - Last: deploy and enjoy
