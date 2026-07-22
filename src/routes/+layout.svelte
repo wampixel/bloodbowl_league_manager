@@ -43,7 +43,7 @@
                 seasons
                 <ChevronDownOutline class="h-6 w-6 inline" />
             </NavLi>
-            <NavLi href={resolve('/roasters')}>équipes</NavLi>
+            <NavLi href={resolve('/rosters')}>équipes</NavLi>
             <Dropdown simple>
                 <DropdownItem href={resolve(`/season/${year}`)}>current season</DropdownItem>
             </Dropdown>

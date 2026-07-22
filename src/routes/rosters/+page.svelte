@@ -8,12 +8,12 @@
 </script>
 
 <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-    {#each data.roasters as roaster (roaster.uid)}
+    {#each data.rosters as roster (roster.uid)}
         <A
             class="m-2 capitalize md:text-center"
-            href={`${page.url.pathname}/${roaster.uid}`}
+            href={`${page.url.pathname}/${roster.uid}`}
         >
-            {roaster.name}
+            {roster.name}
             <ArrowRightOutline />
         </A>
     {/each}

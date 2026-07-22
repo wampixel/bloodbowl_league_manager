@@ -7,7 +7,7 @@
     } from 'flowbite-svelte';
     import { BanOutline, CheckOutline } from 'flowbite-svelte-icons';
 
-    let { players, roaster } = $props();
+    let { players, roster } = $props();
 
     const formatNumber = value => new Intl.NumberFormat('en-US').format(value);
 </script>
@@ -61,11 +61,11 @@
     <tfoot>
         <tr>
             <th scope="row text-center" colspan="8">
-                0-16 Relances: {formatNumber(roaster.reroll_cost)}
+                0-16 Relances: {formatNumber(roster.reroll_cost)}
             </th>
             <th class="flex flex-row gap-1">
                 <span class="capitalize">apothicaire</span>
-                    {#if roaster.apothecary}
+                    {#if roster.apothecary}
                         <CheckOutline />
                     {:else}
                         <BanOutline />

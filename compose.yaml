@@ -1,6 +1,7 @@
 services:
   pgadmin:
     image: dpage/pgadmin4
+    restart: always
     env_file:
       - .env.pgadmin
     ports:

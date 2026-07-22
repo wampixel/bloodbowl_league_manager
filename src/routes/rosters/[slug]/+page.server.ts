@@ -2,14 +2,14 @@ import { desc, eq } from 'drizzle-orm';
 
 import { db } from '$lib/server/db/index.js';
 
-import { playerTable, roasterTable } from '$lib/server/db/schema/rules.js';
+import { playerTable, rosterTable } from '$lib/server/db/schema/rules.js';
 
 export async function load({ params }) {
-    const roaster = params.slug;
+    const roster = params.slug;
 
     return {
-        roaster: await db.query.roasterTable.findFirst({
-            where: eq(roasterTable.uid, roaster),
+        roster: await db.query.rosterTable.findFirst({
+            where: eq(rosterTable.uid, roster),
             columns: {
                 apothecary: true,
                 reroll_cost: true,
@@ -17,7 +17,7 @@ export async function load({ params }) {
         }),
         players: await db.query.playerTable.findMany({
             with: { playerToSkill: true },
-            where: eq(playerTable.roaster, roaster),
+            where: eq(playerTable.roster, roster),
             orderBy: [desc(playerTable.quantity), playerTable.cost],
             columns: {
                 quantity: true,

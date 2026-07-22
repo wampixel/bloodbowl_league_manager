@@ -1,12 +1,11 @@
 import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
-import { db } from '$lib/server/db';
-// import { get as getUser } from '$lib/server/db/query/user';
-// import { get as getSession } from '$lib/server/db/query/session';
+import { dev } from '$app/environment';
 
-import { userTable, sessionTable } from '$lib/server/db/schema/public';
-import { createSession } from '$lib/server/session.js';
+import { db } from '$lib/server/db';
+import { userTable } from '$lib/server/db/schema/public';
+import { createSession, SESSION_DURATION } from '$lib/server/session.js';
 
 const ERROR = 'Invalid username or password';
 
@@ -14,39 +13,31 @@ export const actions = {
     default: async ({ request, cookies }) => {
         const data = await request.formData();
 
-        const username: string = data.get('username') as string;
+        const username = data.get('username') as string;
+        const password = data.get('password') as string;
+
+        if (!username || !password)
+            return fail(401, { message: ERROR });
+
         const user = await db.query.userTable.findFirst({
             where: eq(userTable.username, username),
         });
 
-        if (!username || !user)
+        if (!user || !user.passphrase)
             return fail(401, { message: ERROR });
 
-        const session = await db.query.sessionTable.findFirst({
-            where: eq(sessionTable.user, user.uid as string),
-        });
+        const check = await bcrypt.compare(password, user.passphrase);
+        if (!check)
+            return fail(401, { message: ERROR });
 
-        let uid;
-        if (!session) {
-            const password: string = data.get('password') as string;
-            const check = await bcrypt.compare(password, user.passphrase as string);
-
-            if (!check)
-                return fail(401, { message: ERROR });
-
-            uid = await createSession(user.uid);
-        }
-        else {
-            uid = session.uid;
-        }
+        const uid = await createSession(user.uid);
 
         cookies.set('session', uid, {
             path: '/',
             httpOnly: true,
             sameSite: 'lax',
-            secure: true,
-            maxAge: 60 * 60,
-
+            secure: !dev,
+            maxAge: SESSION_DURATION / 1000,
         });
 
         return { message: 'Successfully logged in' };

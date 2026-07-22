@@ -1,1 +1,0 @@
-ALTER TABLE "rules"."playerToSkill" ADD COLUMN "display" varchar(25);

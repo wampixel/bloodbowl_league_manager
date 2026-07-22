@@ -1,1 +1,0 @@
-ALTER TABLE "rules"."player" ALTER COLUMN "name" SET DATA TYPE varchar(30);

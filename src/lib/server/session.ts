@@ -5,7 +5,7 @@ import { insert, del } from './db/query/session';
 import { sessionTable } from './db/schema/public';
 import { db } from './db';
 
-const SESSION_DURATION = 1000 * 60 * 60;
+export const SESSION_DURATION = 1000 * 60 * 60;
 
 const createSession = async (user: string) => {
     const uid = randomUUID();
@@ -18,17 +18,17 @@ const createSession = async (user: string) => {
     return uid;
 };
 
-const verifySession = async (uid: string) => {
+const verifySession = async (uid: string): Promise<string | null> => {
     const session = await db.query.sessionTable.findFirst({ where: eq(sessionTable.uid, uid) });
     if (session == undefined)
-        return false;
+        return null;
 
-    if (session.expire < new Date(Date.now())) {
+    if (session.expire < new Date()) {
         await del(uid);
-        return false;
+        return null;
     }
 
-    return true;
+    return session.user ?? null;
 };
 
 export {

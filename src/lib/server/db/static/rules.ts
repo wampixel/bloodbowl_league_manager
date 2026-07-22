@@ -38,7 +38,7 @@ type RulesStruct = {
 
 };
 
-export const ROASTERS_RULES: RulesStruct = {
+export const ROSTERS_RULES: RulesStruct = {
     'amazones': {
         reroll_cost: 60000,
         apothecary: true,
@@ -764,7 +764,7 @@ export const ROASTERS_RULES: RulesStruct = {
                 primary: 'agility,devious,general', secondary: 'mutation,strength',
             },
             {
-                name: 'blitzer skqven', keywords: 'skaven,blitzer', quantity: 2, cost: 90000,
+                name: 'blitzer skaven', keywords: 'skaven,blitzer', quantity: 2, cost: 90000,
                 move: 8, strength: 3, agility: 3, passing: 4, armour: 9,
                 skills: ['blocage', 'arracher le ballon'],
                 primary: 'general,strength', secondary: 'agility,devious,mutation',
@@ -872,7 +872,7 @@ export const ROASTERS_RULES: RulesStruct = {
                 primary: 'agility, general, passing', secondary: 'strength',
             },
             {
-                name: 'blitzer vampire', keywords: 'vampir,blitzer,mort-vivant', quantity: 2, cost: 110000,
+                name: 'blitzer vampire', keywords: 'vampire,blitzer,mort-vivant', quantity: 2, cost: 110000,
                 move: 6, strength: 4, agility: 2, passing: 4, armour: 9,
                 skills: ['soif de sang (3+)', 'regard hypnotique', 'juggernaut', 'régénération'],
                 primary: 'agility,general,strength', secondary: '',

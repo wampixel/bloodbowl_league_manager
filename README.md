@@ -2,7 +2,7 @@
 
 This webapp can be used to manage your bloobbowl league. With this webapp, you can:
 
-- Create your own roaster
+- Create your own roster
 - manage your team
 - create your account
 
@@ -12,11 +12,16 @@ This webapp can be used to manage your bloobbowl league. With this webapp, you c
 
 This project use PostgresDB with drizzle ORM.
 
-With drizzle you can run some npm scripts:
+Available npm scripts:
 
-- `db:generate`to create new migration file
-- `db:push`to apply modifications on DB
-- `db:migrate` initialize DB
+- `db:start` start the Postgres and pgAdmin containers (`docker compose up`)
+- `db:generate` create a new migration file
+- `db:push` apply the schema to the DB
+- `db:migrate` run migrations
+- `db:seed` populate the `rules` schema (skills, rosters, players)
+- `db:studio` open Drizzle Studio
+
+The seed is idempotent and is **not** run automatically; run `npm run db:seed` after the schema exists.
 
 ## Run on dev
 
@@ -48,11 +53,14 @@ PGADMIN_DEFAULT_PASSWORD="MySecretPGADMINPassw0rd!"
 PGADMIN_DISABLE_POSTFIX="true"
 ```
 
-once files are created, you can run docker with the command `docker compose up`
+once files are created, set up the database and run the project:
 
-Now you can apply migrations on Database with the command: `npm run db:migrate`. This command will create all tables and schema on DB.
-
-And then run the project with the command `npm run dev`
+```sh
+npm run db:start   # start Postgres (and pgAdmin) via docker
+npm run db:push    # create the tables from the schema
+npm run db:seed    # load the rules data (skills, rosters, players)
+npm run dev        # start the app
+```
 
 ## Building
 

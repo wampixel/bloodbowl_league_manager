@@ -3,8 +3,8 @@ import { boolean, check, integer, pgSchema, primaryKey, smallint, uuid, varchar 
 
 export const rulesSchema = pgSchema('rules');
 
-export const roasterTable = rulesSchema.table(
-    'roaster',
+export const rosterTable = rulesSchema.table(
+    'roster',
     {
         uid: uuid().defaultRandom().primaryKey(),
         name: varchar(),
@@ -28,7 +28,7 @@ export const playerTable = rulesSchema.table(
     {
         uid: uuid().defaultRandom().primaryKey(),
         name: varchar({ length: 30 }),
-        roaster: uuid().references(() => roasterTable.uid),
+        roster: uuid().references(() => rosterTable.uid),
         keywords: varchar({ length: 256 }),
         quantity: integer(),
         cost: integer(),
@@ -87,7 +87,7 @@ export const playerToSkillRelation = relations(playerToSkillTable, ({ one }) => 
 }));
 
 // Types export
-export type NewRoasterRule = typeof roasterTable.$inferInsert;
+export type NewRosterRule = typeof rosterTable.$inferInsert;
 export type NewSkillRule = typeof skillTable.$inferInsert;
 export type NewPlayerRule = typeof playerTable.$inferInsert;
 export type NewPlayerToSkill = typeof playerToSkillTable.$inferInsert;
